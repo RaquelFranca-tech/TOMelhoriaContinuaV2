@@ -1,0 +1,701 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ══════════════════════════════════════
+   VIBRA DESIGN SYSTEM — Corporate Elegant
+   Palette: deep green, light green, white, grey
+══════════════════════════════════════ */
+
+@theme inline {
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-vibra-900: var(--vibra-900);
+  --color-vibra-800: var(--vibra-800);
+  --color-vibra-700: var(--vibra-700);
+  --color-vibra-600: var(--vibra-600);
+  --color-vibra-200: var(--vibra-200);
+  --color-vibra-100: var(--vibra-100);
+  --color-vibra-50: var(--vibra-50);
+
+  --color-vibra-primary: var(--vibra-primary);
+  --color-vibra-secondary: var(--vibra-secondary);
+  --color-vibra-yellow: var(--vibra-yellow);
+  --color-vibra-blue: var(--vibra-blue);
+  --color-vibra-gray: var(--vibra-gray);
+  --color-vibra-darkgray: var(--vibra-darkgray);
+  --color-vibra-lightgreen: var(--vibra-lightgreen);
+  --color-vibra-lightyellow: var(--vibra-lightyellow);
+  --color-vibra-lightblue: var(--vibra-lightblue);
+  --color-vibra-orange: var(--vibra-orange);
+
+  --shadow-vibra-sm: 0 1px 3px rgba(1, 56, 32, 0.08), 0 1px 2px rgba(1, 56, 32, 0.05);
+  --shadow-vibra: 0 12px 32px rgba(1, 56, 32, 0.14);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  --vibra-900: #012b18;
+  --vibra-800: #013820;
+  --vibra-700: #025c30;
+  --vibra-600: #1e8a00;
+  --vibra-200: #d4edda;
+  --vibra-100: #eaf4ec;
+  --vibra-50: #f4faf5;
+
+  --vibra-primary: #044317;
+  --vibra-secondary: #268200;
+  --vibra-yellow: #fedc00;
+  --vibra-blue: #0000ff;
+  --vibra-gray: #dbdbdb;
+  --vibra-darkgray: #54585a;
+  --vibra-lightgreen: #a9c78e;
+  --vibra-lightyellow: #fced96;
+  --vibra-lightblue: #75a7d2;
+  --vibra-orange: #ff6900;
+
+  --background: #f4faf5;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+
+  --primary: #013820;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf4ec;
+  --secondary-foreground: #013820;
+  --muted: #f2f2f2;
+  --muted-foreground: #767676;
+  --accent: #d4edda;
+  --accent-foreground: #013820;
+  --destructive: #c0392b;
+  --destructive-foreground: #ffffff;
+
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #025c30;
+}
+
+.dark {
+  --background: #012b18;
+  --foreground: #f4faf5;
+  --card: #013820;
+  --card-foreground: #f4faf5;
+  --popover: #013820;
+  --popover-foreground: #f4faf5;
+  --primary: #1e8a00;
+  --primary-foreground: #ffffff;
+  --secondary: #025c30;
+  --secondary-foreground: #f4faf5;
+  --muted: #013820;
+  --muted-foreground: #9e9e9e;
+  --accent: #025c30;
+  --accent-foreground: #f4faf5;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #1e8a00;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  html,
+  body {
+    min-height: 100%;
+  }
+}
+
+/* VIBRA authentication/loading screens — matched to the supplied HTML reference */
+@keyframes vibra-pulse {
+  0%,
+  100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+@keyframes vibra-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+.vibra-pulse {
+  animation: vibra-pulse 1.8s ease-in-out infinite;
+}
+
+.vibra-auth-page {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  overflow: hidden;
+  background: #ffffff;
+  color: #003820;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.vibra-auth-brand,
+.vibra-loading-screen {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 23% 50%, rgba(7, 96, 51, 0.58), transparent 32%),
+    radial-gradient(circle at 50% 49%, rgba(1, 72, 38, 0.55), transparent 36%),
+    linear-gradient(90deg, #013a20 0%, #003c22 48%, #00381f 100%);
+}
+
+.vibra-auth-brand {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vibra-grid-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0.72;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    0 0;
+  background-size:
+    176px 182px,
+    176px 182px,
+    44px 45.5px,
+    44px 45.5px;
+}
+
+.vibra-grid-layer::before,
+.vibra-auth-brand::after,
+.vibra-loading-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.vibra-grid-layer::before {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 89px,
+      rgba(255, 255, 255, 0.03) 89px 90px,
+      transparent 90px 182px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 87px,
+      rgba(255, 255, 255, 0.028) 87px 88px,
+      transparent 88px 176px
+    );
+}
+
+.vibra-auth-brand::after,
+.vibra-loading-screen::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03),
+      transparent 18%,
+      transparent 82%,
+      rgba(0, 0, 0, 0.04)
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 42%, rgba(0, 0, 0, 0.07));
+}
+
+.vibra-brand-stack {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: min(354px, 42vw);
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.vibra-auth-logo {
+  width: 178px;
+  height: auto;
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.22));
+}
+
+.vibra-brand-kicker {
+  margin: 38px 0 22px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  line-height: 1.8;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: normal;
+  max-width: 280px;
+}
+
+.vibra-feature-list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vibra-feature-item {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.078);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 9px 16px;
+  color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(3px);
+}
+
+.vibra-feature-icon {
+  width: 21px;
+  flex: 0 0 21px;
+  font-size: 16px;
+  line-height: 1;
+  text-align: center;
+}
+
+.vibra-feature-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  line-height: 1.08;
+}
+
+.vibra-feature-copy strong {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.vibra-feature-copy small {
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.vibra-auth-panel {
+  width: clamp(360px, 27.3vw, 428px);
+  flex: 0 0 clamp(360px, 27.3vw, 428px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid #e5e5e5;
+  background: #ffffff;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.03);
+}
+
+.vibra-auth-form-wrap {
+  width: min(316px, calc(100% - 52px));
+}
+
+.vibra-mobile-logo {
+  display: none;
+}
+
+.vibra-auth-form-wrap h1 {
+  margin: 0;
+  color: #003820;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.05;
+}
+
+.vibra-auth-form-wrap > p {
+  margin: 7px 0 28px;
+  color: #9a9a9a;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.vibra-auth-form,
+.vibra-first-access-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.vibra-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.vibra-field + .vibra-field {
+  margin-top: 12px;
+}
+
+.vibra-field span {
+  color: #9b9b9b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.vibra-field input,
+.vibra-field select {
+  width: 100%;
+  height: 34px;
+  border: 1px solid #dddddd;
+  border-radius: 7px;
+  background: #ffffff;
+  box-sizing: border-box;
+  color: #222222;
+  font:
+    400 12px/1 Arial,
+    "Helvetica Neue",
+    Helvetica,
+    sans-serif;
+  outline: none;
+  padding: 0 11px;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.vibra-field input::placeholder {
+  color: #9a9a9a;
+  opacity: 1;
+}
+
+.vibra-field input:focus {
+  border-color: #007a3d;
+  box-shadow: 0 0 0 3px rgba(0, 122, 61, 0.11);
+}
+
+.vibra-field select:focus {
+  border-color: #007a3d;
+  box-shadow: 0 0 0 3px rgba(0, 122, 61, 0.11);
+}
+
+.vibra-name-select-row {
+  display: grid;
+  grid-template-columns: 1fr 29px;
+  gap: 9px;
+}
+
+.vibra-name-select-row button {
+  height: 26px;
+  align-self: center;
+  border: 1px solid #dddddd;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #777777;
+  cursor: pointer;
+  font:
+    800 11px/1 Arial,
+    "Helvetica Neue",
+    Helvetica,
+    sans-serif;
+}
+
+.vibra-forgot-link {
+  align-self: flex-end;
+  margin-top: 5px;
+  color: #0e3e7e;
+  font-size: 10px;
+  line-height: 1.2;
+  text-decoration: underline;
+}
+
+.vibra-primary-button,
+.vibra-register-button {
+  width: 100%;
+  height: 35px;
+  border: 0;
+  border-radius: 7px;
+  color: #ffffff;
+  cursor: pointer;
+  font:
+    800 12px/1 Arial,
+    "Helvetica Neue",
+    Helvetica,
+    sans-serif;
+  letter-spacing: 0;
+  transition:
+    filter 150ms ease,
+    transform 150ms ease,
+    opacity 150ms ease;
+}
+
+.vibra-primary-button {
+  margin-top: 21px;
+  background: #00522d;
+}
+
+.vibra-register-button {
+  margin-top: 12px;
+  background: linear-gradient(90deg, #00611f 0%, #008f3a 100%);
+  box-shadow: 0 12px 22px rgba(0, 143, 58, 0.18);
+}
+
+.vibra-primary-button:hover,
+.vibra-register-button:hover {
+  filter: brightness(1.05);
+}
+
+.vibra-primary-button:active,
+.vibra-register-button:active {
+  transform: translateY(1px);
+}
+
+.vibra-primary-button:disabled,
+.vibra-register-button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.vibra-auth-separator {
+  height: 1px;
+  margin: 20px 0 18px;
+  background: #eeeeee;
+}
+
+.vibra-first-access-toggle {
+  display: flex;
+  width: 100%;
+  height: 38px;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e4e4e4;
+  border-radius: 9px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.025);
+  color: #004129;
+  cursor: pointer;
+  font:
+    800 12px/1 Arial,
+    "Helvetica Neue",
+    Helvetica,
+    sans-serif;
+  padding: 0 12px;
+  text-align: left;
+}
+
+.vibra-first-access-toggle span:last-child {
+  color: #777777;
+  font-size: 10px;
+}
+
+.vibra-first-access-form {
+  margin-top: -1px;
+  border: 1px solid #e4e4e4;
+  border-top: 0;
+  border-radius: 0 0 9px 9px;
+  padding: 12px 12px 13px;
+}
+
+.vibra-info-box {
+  margin: 10px 0 12px;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  background: #fafafa;
+  color: #777777;
+  font-size: 10px;
+  line-height: 1.35;
+  padding: 9px 10px;
+}
+
+.vibra-loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vibra-loading-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
+
+.vibra-loading-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vibra-loading-logo {
+  width: 190px;
+  height: auto;
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.24));
+}
+
+.vibra-loading-track {
+  position: relative;
+  width: 260px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.vibra-loading-bar {
+  position: absolute;
+  inset: 0;
+}
+
+.vibra-loading-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, #4ab848, transparent);
+  animation: vibra-bar 1.4s ease-in-out infinite;
+}
+
+.vibra-loading-message {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .vibra-auth-panel {
+    width: 360px;
+    flex-basis: 360px;
+  }
+
+  .vibra-brand-stack {
+    width: min(330px, 42vw);
+  }
+
+  .vibra-auth-logo {
+    width: 158px;
+  }
+
+  .vibra-brand-kicker {
+    margin-top: 70px;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 700px) {
+  .vibra-auth-page {
+    min-height: 100dvh;
+    overflow: auto;
+    flex-direction: column;
+  }
+
+  .vibra-auth-brand {
+    min-height: 340px;
+    flex: 0 0 auto;
+    padding: 34px 22px;
+  }
+
+  .vibra-brand-stack {
+    width: min(354px, 100%);
+  }
+
+  .vibra-auth-logo {
+    width: 162px;
+  }
+
+  .vibra-brand-kicker {
+    margin-top: 46px;
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .vibra-feature-item {
+    min-height: 48px;
+  }
+
+  .vibra-auth-panel {
+    width: 100%;
+    flex: 1 0 auto;
+    border-left: 0;
+    padding: 34px 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .vibra-auth-form-wrap {
+    width: calc(100% - 36px);
+  }
+
+  .vibra-auth-brand {
+    min-height: 318px;
+  }
+
+  .vibra-feature-copy strong {
+    font-size: 11px;
+  }
+
+  .vibra-feature-copy small {
+    font-size: 9px;
+  }
+}

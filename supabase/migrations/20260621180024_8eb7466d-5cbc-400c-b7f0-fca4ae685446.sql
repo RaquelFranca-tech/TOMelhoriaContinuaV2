@@ -1,0 +1,1 @@
+ALTER TABLE public.iniciativas ADD COLUMN IF NOT EXISTS processo text;

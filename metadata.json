@@ -1,0 +1,6 @@
+{
+  "name": "Cliente na Veia",
+  "description": "Sistema de Gestão de Melhoria Contínua do Escritório de Transformação VIBRA",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

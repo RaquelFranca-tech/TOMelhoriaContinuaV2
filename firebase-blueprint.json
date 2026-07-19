@@ -1,0 +1,208 @@
+{
+  "entities": {
+    "Profile": {
+      "title": "Profile",
+      "description": "User profiles",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nome": { "type": "string" },
+        "email": { "type": "string" },
+        "cargo": { "type": "string" },
+        "departamento": { "type": "string" }
+      }
+    },
+    "Picklist": {
+      "title": "Picklist",
+      "description": "Picklist categories",
+      "type": "object",
+      "properties": {
+        "categoria": { "type": "string" },
+        "descricao": { "type": "string" }
+      }
+    },
+    "PicklistValor": {
+      "title": "PicklistValor",
+      "description": "Values for picklists",
+      "type": "object",
+      "properties": {
+        "picklist_id": { "type": "string" },
+        "valor": { "type": "string" },
+        "ordem": { "type": "number" },
+        "ativo": { "type": "boolean" }
+      }
+    },
+    "Projeto": {
+      "title": "Projeto",
+      "description": "Projects macros",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "created_by": { "type": "string" },
+        "deleted_at": { "type": "string" }
+      }
+    },
+    "Iniciativa": {
+      "title": "Iniciativa",
+      "description": "Project initiatives",
+      "type": "object",
+      "properties": {
+        "codigo": { "type": "string" },
+        "titulo": { "type": "string" },
+        "status": { "type": "string" },
+        "prioridade": { "type": "string" },
+        "percentual_avanco": { "type": "number" },
+        "projeto_id": { "type": "string" },
+        "data_fim_prevista": { "type": "string" },
+        "hc_atual": { "type": "number" },
+        "hc_alcancado": { "type": "number" },
+        "hc_liberado": { "type": "number" },
+        "esforco": { "type": "number" },
+        "impacto_negocio": { "type": "number" },
+        "lider_id": { "type": "string" },
+        "analista_id": { "type": "string" },
+        "potencial_automacao": { "type": "string" },
+        "created_by": { "type": "string" },
+        "deleted_at": { "type": "string" },
+        "data_implantacao": { "type": "string" }
+      }
+    },
+    "Tarefa": {
+      "title": "Tarefa",
+      "description": "Tasks within initiatives",
+      "type": "object",
+      "properties": {
+        "titulo": { "type": "string" },
+        "status": { "type": "string" },
+        "iniciativa_id": { "type": "string" },
+        "responsavel_id": { "type": "string" },
+        "data_fim_prevista": { "type": "string" },
+        "created_by": { "type": "string" },
+        "deleted_at": { "type": "string" }
+      }
+    },
+    "Microprocesso": {
+      "title": "Microprocesso",
+      "description": "Microprocesses within initiatives",
+      "type": "object",
+      "properties": {
+        "titulo": { "type": "string" },
+        "status": { "type": "string" },
+        "percentual_avanco": { "type": "number" },
+        "iniciativa_id": { "type": "string" },
+        "deleted_at": { "type": "string" }
+      }
+    },
+    "Anexo": {
+      "title": "Anexo",
+      "description": "Attachments",
+      "type": "object",
+      "properties": {
+        "tarefa_id": { "type": "string" },
+        "iniciativa_id": { "type": "string" },
+        "created_at": { "type": "string" }
+      }
+    },
+    "Mc3Registro": {
+      "title": "Mc3Registro",
+      "description": "MC3 records",
+      "type": "object",
+      "properties": {
+        "created_at": { "type": "string" },
+        "deleted_at": { "type": "string" }
+      }
+    },
+    "Reconhecimento": {
+      "title": "Reconhecimento",
+      "description": "Reconhecimentos",
+      "type": "object",
+      "properties": {
+        "created_at": { "type": "string" }
+      }
+    },
+    "UserRole": {
+      "title": "UserRole",
+      "description": "User roles",
+      "type": "object",
+      "properties": {
+        "user_id": { "type": "string" },
+        "role": { "type": "string" }
+      }
+    },
+    "UserSessionLog": {
+      "title": "UserSessionLog",
+      "description": "Session logs",
+      "type": "object",
+      "properties": {
+        "user_id": { "type": "string" },
+        "email": { "type": "string" },
+        "evento": { "type": "string" },
+        "created_at": { "type": "string" }
+      }
+    },
+    "Formula": {
+      "title": "Formula",
+      "description": "Formulas",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" }
+      }
+    },
+    "AppConfiguracao": {
+      "title": "AppConfiguracao",
+      "description": "App settings",
+      "type": "object",
+      "properties": {
+        "chave": { "type": "string" },
+        "valor": { "type": "object" }
+      }
+    },
+    "KanbanHistorico": {
+      "title": "KanbanHistorico",
+      "description": "Kanban status history",
+      "type": "object",
+      "properties": {
+        "iniciativa_id": { "type": "string" },
+        "status_de": { "type": "string" },
+        "status_para": { "type": "string" },
+        "movido_por": { "type": "string" },
+        "created_at": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/profiles/{profileId}": { "schema": "Profile", "description": "Profiles collection" },
+    "/picklists/{picklistId}": { "schema": "Picklist", "description": "Picklists collection" },
+    "/picklist_valores/{picklistValorId}": {
+      "schema": "PicklistValor",
+      "description": "Picklist values collection"
+    },
+    "/projetos/{projetoId}": { "schema": "Projeto", "description": "Projects" },
+    "/iniciativas/{iniciativaId}": { "schema": "Iniciativa", "description": "Initiatives" },
+    "/tarefas/{tarefaId}": { "schema": "Tarefa", "description": "Tasks" },
+    "/microprocessos/{microprocessoId}": {
+      "schema": "Microprocesso",
+      "description": "Microprocesses"
+    },
+    "/anexos/{anexoId}": { "schema": "Anexo", "description": "Attachments" },
+    "/mc3_registros/{mc3RegistroId}": { "schema": "Mc3Registro", "description": "MC3 records" },
+    "/reconhecimentos/{reconhecimentoId}": {
+      "schema": "Reconhecimento",
+      "description": "Reconhecimentos"
+    },
+    "/user_roles/{userRoleId}": { "schema": "UserRole", "description": "User roles" },
+    "/user_session_log/{userSessionLogId}": {
+      "schema": "UserSessionLog",
+      "description": "User session logs"
+    },
+    "/formulas/{formulaId}": { "schema": "Formula", "description": "Formulas" },
+    "/app_configuracoes/{appConfiguracaoId}": {
+      "schema": "AppConfiguracao",
+      "description": "App configuration"
+    },
+    "/kanban_historico/{kanbanHistoricoId}": {
+      "schema": "KanbanHistorico",
+      "description": "Kanban status history"
+    }
+  }
+}
