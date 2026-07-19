@@ -26,23 +26,35 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Prepare static files
+      - name: Prepare static files for GitHub Pages
         run: |
-          # Cria a pasta dist se não existir
+          # Cria a pasta dist
           mkdir -p dist
           
-          # Se existir .output/public, copia para dist
+          # Verifica se .output/public existe
           if [ -d ".output/public" ]; then
+            # Copia o conteúdo de .output/public para dist
             cp -R .output/public/* dist/
             echo "Arquivos copiados de .output/public"
-          elif [ -d ".output" ]; then
-            # Copia apenas arquivos estáticos
-            find .output -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.json" -o -name "*.png" -o -name "*.svg" -o -name "*.ico" -o -name "*.webp" -o -name "*.woff2" -o -name "*.ttf" \) -exec cp --parents {} dist/ \;
-            echo "Arquivos estáticos copiados de .output"
+            
+            # Se o index.html estiver em uma subpasta, move para a raiz
+            if [ -f "dist/index.html" ]; then
+              echo "index.html encontrado na raiz"
+            else
+              # Procura por index.html em subpastas
+              find dist -name "index.html" -exec cp {} dist/ \;
+              echo "index.html copiado para a raiz"
+            fi
           else
-            echo "Erro: Nenhuma pasta .output encontrada"
+            echo "Erro: Pasta .output/public não encontrada"
+            echo "Conteúdo do diretório atual:"
+            ls -la
             exit 1
           fi
+          
+          # Mostra o conteúdo final da pasta dist
+          echo "Conteúdo final da pasta dist:"
+          ls -la dist/
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
