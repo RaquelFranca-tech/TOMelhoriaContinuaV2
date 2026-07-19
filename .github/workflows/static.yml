@@ -1,0 +1,73 @@
+# Workflow para deploy do TanStack Start com Nitro no GitHub Pages
+name: Deploy TanStack App to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Prepare static files for GitHub Pages
+        run: |
+          # Cria a pasta dist
+          mkdir -p dist
+          
+          # Se existir .output/public, copia os arquivos estáticos
+          if [ -d ".output/public" ]; then
+            cp -R .output/public/* dist/
+            echo "Arquivos copiados de .output/public"
+          # Se existir .output e tiver arquivos HTML
+          elif [ -d ".output" ]; then
+            # Copia tudo que não for .js (arquivos de servidor)
+            find .output -type f \( -name "*.html" -o -name "*.css" -o -name "*.json" -o -name "*.png" -o -name "*.svg" -o -name "*.ico" -o -name "*.webp" -o -name "*.woff2" -o -name "*.ttf" \) -exec cp --parents {} dist/ \;
+            echo "Arquivos estáticos copiados de .output"
+          else
+            echo "Erro: Nenhuma pasta .output encontrada"
+            exit 1
+          fi
+          
+          # Mostra o que foi copiado (para debug)
+          echo "Conteúdo da pasta dist:"
+          ls -la dist/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
