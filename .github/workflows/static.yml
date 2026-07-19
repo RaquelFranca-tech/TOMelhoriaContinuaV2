@@ -1,4 +1,3 @@
-# Workflow para deploy do TanStack Start com Nitro no GitHub Pages
 name: Deploy TanStack App to GitHub Pages
 
 on:
@@ -7,16 +6,10 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  contents: write
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,41 +26,28 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Prepare static files for GitHub Pages
+      - name: Prepare static files
         run: |
-          # Cria a pasta dist
+          # Cria a pasta dist se não existir
           mkdir -p dist
           
-          # Se existir .output/public, copia os arquivos estáticos
+          # Se existir .output/public, copia para dist
           if [ -d ".output/public" ]; then
             cp -R .output/public/* dist/
             echo "Arquivos copiados de .output/public"
-          # Se existir .output e tiver arquivos HTML
           elif [ -d ".output" ]; then
-            # Copia tudo que não for .js (arquivos de servidor)
-            find .output -type f \( -name "*.html" -o -name "*.css" -o -name "*.json" -o -name "*.png" -o -name "*.svg" -o -name "*.ico" -o -name "*.webp" -o -name "*.woff2" -o -name "*.ttf" \) -exec cp --parents {} dist/ \;
+            # Copia apenas arquivos estáticos
+            find .output -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.json" -o -name "*.png" -o -name "*.svg" -o -name "*.ico" -o -name "*.webp" -o -name "*.woff2" -o -name "*.ttf" \) -exec cp --parents {} dist/ \;
             echo "Arquivos estáticos copiados de .output"
           else
             echo "Erro: Nenhuma pasta .output encontrada"
             exit 1
           fi
-          
-          # Mostra o que foi copiado (para debug)
-          echo "Conteúdo da pasta dist:"
-          ls -la dist/
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: ./dist
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true
